@@ -1,0 +1,43 @@
+# =========================
+# Tipe Data (Model)
+# =========================
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    email_verified_at: DateTime
+    created_at: DateTime!
+    updated_at: DateTime!
+    articles: [Article!]!
+}
+type Article {
+    id: ID!
+    title: String!
+    content: String!
+    user: User! @belongsTo
+}
+# =========================
+# Query (Baca Data)
+# =========================
+type Query {
+    users: [User!]! @all
+    user(id: Int @eq): User @find
+
+    articles: [Article!]! @all
+    article(id: Int @eq): Article @find
+
+    articlesWithAuthors: [Article!]! @all
+    articlesWithAuthor(id: Int @eq): Article @find
+}
+# =========================
+# Mutation (Tambah/Ubah/Hapus)
+# =========================
+type Mutation {
+    createUser(name: String!, email: String!, password: String!): User @create
+    updateUser(id: ID!, name: String, email: String): User @update
+    deleteUser(id: Int @eq): User @delete
+
+    createArticle(title: String!, content: String!, user_id: ID!): Article @create
+    updateArticle(id: ID!, title: String, content: String): Article @update
+    deleteArticle(id: Int @eq): Article @delete
+}
