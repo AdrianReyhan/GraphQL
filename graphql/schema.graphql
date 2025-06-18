@@ -16,10 +16,18 @@ type Article {
     content: String!
     user: User! @belongsTo
 }
+
+type AuthPayload {
+    access_token: String!
+    user: User!
+}
+
 # =========================
 # Query (Baca Data)
 # =========================
 type Query {
+    me: User @auth
+
     users: [User!]! @all
     user(id: Int @eq): User @find
 
@@ -32,12 +40,17 @@ type Query {
 # =========================
 # Mutation (Tambah/Ubah/Hapus)
 # =========================
+
 type Mutation {
+    login(username: String!, password: String!): AuthPayload!
+        @field(resolver: "App\\GraphQL\\Mutations\\LoginResolver")
+
     createUser(name: String!, email: String!, password: String!): User @create
     updateUser(id: ID!, name: String, email: String): User @update
     deleteUser(id: Int @eq): User @delete
 
-    createArticle(title: String!, content: String!, user_id: ID!): Article @create
+    createArticle(title: String!, content: String!, user_id: ID!): Article
+        @create
     updateArticle(id: ID!, title: String, content: String): Article @update
     deleteArticle(id: Int @eq): Article @delete
 }

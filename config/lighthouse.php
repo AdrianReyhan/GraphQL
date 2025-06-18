@@ -371,6 +371,10 @@ return [
     |
     */
 
+    // 'mutations' => [
+    //     'login' => GraphQL\Mutations\AuthMutator::class . '@login', // Menambahkan resolver untuk mutasi login
+    // ],
+
     'batchload_relations' => true,
 
     /*

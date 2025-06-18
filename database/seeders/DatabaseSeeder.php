@@ -16,6 +16,10 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
+        // $this->call([
+        //     UserSeeder::class,
+        // ]);
+
         // Buat 10 user, masing-masing dengan 3 artikel 
         User::factory()->count(5)->has(Article::factory()->count(2))->create();
     }
